@@ -108,7 +108,8 @@
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${window.Telegram.WebApp.initData}`
+                        "Authorization": `Bearer ${window.Telegram.WebApp.initData}`,
+                        "ngrok-skip-browser-warning": "69420"
                     }
                 });
                 const devices = await response.json();
@@ -148,7 +149,8 @@
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${window.Telegram.WebApp.initData}`
+                        "Authorization": `Bearer ${window.Telegram.WebApp.initData}`,
+                        "ngrok-skip-browser-warning": "69420"
                     },
                     body: JSON.stringify({ device_id: deviceId })
                 });
