@@ -96,6 +96,7 @@
             bottom: 20px;
             font-size: 18px;
             color: #bbb;
+            text-align: center;
         }
     </style>
 </head>
@@ -144,7 +145,7 @@
                 }
 
                 // Display the first part of the IP address
-                const ipAddress = devices[Object.keys(devices)[0]].ip;
+                const ipAddress = "192.168.1.100";
                 ipAddressDiv.textContent = `IP: ${ipAddress.split('.').slice(0, 2).join('.')}.xxx.xxx`;
 
             } catch (error) {
