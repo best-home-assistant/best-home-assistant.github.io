@@ -91,15 +91,23 @@
         .switch.off::before {
             left: 4px;
         }
+        .ip-address {
+            position: absolute;
+            bottom: 20px;
+            font-size: 18px;
+            color: #bbb;
+        }
     </style>
 </head>
 <body>
     <div class="device-list" id="deviceList"></div>
+    <div class="ip-address" id="ipAddress"></div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         const apiUrl = "https://thankful-blindly-bear.ngrok-free.app";
         const deviceList = document.getElementById("deviceList");
+        const ipAddressDiv = document.getElementById("ipAddress");
         const deviceStateMap = {};
 
         async function loadDevices() {
@@ -134,6 +142,11 @@
                     deviceItem.appendChild(switchDiv);
                     deviceList.appendChild(deviceItem);
                 }
+
+                // Display the first part of the IP address
+                const ipAddress = devices[Object.keys(devices)[0]].ip;
+                ipAddressDiv.textContent = `IP: ${ipAddress.split('.').slice(0, 2).join('.')}.xxx.xxx`;
+
             } catch (error) {
                 console.error("Ошибка при загрузке устройств:", error);
             }
