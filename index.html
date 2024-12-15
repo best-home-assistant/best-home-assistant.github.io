@@ -181,16 +181,16 @@
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
-                ipAddressDiv.textContent = `IP: ${data.ip.split('.').slice(0, 1).join('.')}.xxx.xxx`;
+                ipAddressDiv.textContent = `IP: ${data.ip.split('.').slice(0, 1).join('.')}.xxx.xxx.xxx`;
             } catch (error) {
-                console.error("Ошибка при получении IP адреса:", error);
+                ipAddressDiv.textContent = `IP: Error ${error}`;
             }
         }
 
         window.onload = () => {
             loadDevices();
             updateIpAddress();
-            setInterval(updateIpAddress, 3000);
+            setInterval(updateIpAddress, 1000);
         };
     </script>
 </body>
