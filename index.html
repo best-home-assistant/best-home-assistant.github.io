@@ -143,11 +143,6 @@
                     deviceItem.appendChild(switchDiv);
                     deviceList.appendChild(deviceItem);
                 }
-
-                // Display the first part of the IP address
-                const ipAddress = "192.168.1.100";
-                ipAddressDiv.textContent = `IP: ${ipAddress.split('.').slice(0, 2).join('.')}.xxx.xxx`;
-
             } catch (error) {
                 console.error("Ошибка при загрузке устройств:", error);
             }
@@ -182,7 +177,22 @@
             }
         }
 
-        window.onload = loadDevices;
+        async function updateIpAddress() {
+            try {
+                const response = await fetch("https://api.myip.com/");
+                const data = await response.json();
+                const ipAddress = data.ip;
+                ipAddressDiv.textContent = `IP: ${ipAddress.split('.').slice(0, 2).join('.')}.xxx.xxx`;
+            } catch (error) {
+                console.error("Ошибка при получении IP адреса:", error);
+            }
+        }
+
+        window.onload = () => {
+            loadDevices();
+            updateIpAddress();
+            setInterval(updateIpAddress, 3000);
+        };
     </script>
 </body>
 </html>
