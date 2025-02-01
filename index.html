@@ -2,12 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=414, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=414, height=782, initial-scale=1.0">
     <title>Home Assistant</title>
     <style>
-        :root {
-            font-size: 16px; /* Базовый размер шрифта */
-        }
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
@@ -22,21 +19,22 @@
         }
         .device-list {
             width: 100%;
+            max-width: 360px;
             overflow-y: auto;
-            margin-bottom: 1rem;
-            max-width: 20rem; /* 320px */
+            padding: 20px;
+            box-sizing: border-box;
         }
         .device-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: #2c2c2c;
-            border-radius: 0.75rem; /* 12px */
-            padding: 1rem; /* 16px */
-            margin-bottom: 1rem; /* 16px */
-            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 0 4px 8px */
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             opacity: 0;
-            transform: translateY(1.25rem); /* 20px */
+            transform: translateY(20px);
             animation: fadeIn 0.5s forwards;
         }
         .device-item:nth-child(odd) {
@@ -52,19 +50,19 @@
             }
         }
         .device-name {
-            font-size: 1.25rem; /* 20px */
+            font-size: 20px;
             color: #fff;
             font-weight: 600;
         }
         .device-mac {
-            font-size: 0.75rem; /* 12px */
+            font-size: 12px;
             color: #bbb;
-            margin-top: 0.3125rem; /* 5px */
+            margin-top: 5px;
         }
         .switch {
-            width: 3rem; /* 48px */
-            height: 1.625rem; /* 26px */
-            border-radius: 0.8125rem; /* 13px */
+            width: 48px;
+            height: 26px;
+            border-radius: 13px;
             background-color: #444;
             position: relative;
             cursor: pointer;
@@ -76,32 +74,32 @@
         .switch::before {
             content: "";
             position: absolute;
-            top: 0.25rem; /* 4px */
-            left: 0.25rem; /* 4px */
-            width: 1.125rem; /* 18px */
-            height: 1.125rem; /* 18px */
+            top: 4px;
+            left: 4px;
+            width: 18px;
+            height: 18px;
             background-color: #fff;
             border-radius: 50%;
             transition: left 0.3s ease;
         }
         .switch.on::before {
-            left: 1.625rem; /* 26px */
+            left: 26px;
         }
         .switch.off {
             background-color: #f44336;
         }
         .switch.off::before {
-            left: 0.25rem; /* 4px */
+            left: 4px;
         }
         .wake-button {
             background: transparent;
-            border: 0.0625rem solid #A0A0A0; /* 1px */
+            border: 1px solid #A0A0A0;
             color: #A0A0A0;
-            padding: 0.625rem 5rem; /* 10px 80px */
-            font-size: 1.125rem; /* 18px */
-            border-radius: 0.5rem; /* 8px */
+            padding: 10px 80px;
+            font-size: 18px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-bottom: 1.25rem; /* 20px */
+            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
             transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
@@ -133,8 +131,8 @@
         }
         .ip-address {
             position: absolute;
-            bottom: 1.25rem; /* 20px */
-            font-size: 1.125rem; /* 18px */
+            bottom: 20px;
+            font-size: 18px;
             color: #bbb;
             text-align: center;
         }
