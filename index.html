@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=414, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=414, initial-scale=1.0, user-scalable=no">
     <title>Home Assistant</title>
     <style>
         body {
@@ -28,7 +28,7 @@
         .device-list {
             width: 100%;
             overflow-y: auto;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* расстояние между device-list и wake-button */
         }
         .device-item {
             display: flex;
@@ -102,23 +102,20 @@
             border: 2px solid #fff;
             color: #fff;
             padding: 8px 50px;
-            font-size: 18px;
+            font-size: 22px;
             border-radius: 8px;
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* расстояние между wake-button и ip-address */
             position: relative;
             overflow: hidden;
             transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
             -webkit-tap-highlight-color: transparent;
         }
-        .wake-button:hover {
+        .wake-button:hover,
+        .wake-button:active {
             color: #181818;
             background: #fff;
             border-color: #fff;
-        }
-        .wake-button:active {
-            background: #fff;
-            color: #181818;
         }
         .wake-button:focus {
             outline: none;
@@ -136,7 +133,7 @@
             transition: width 0.5s ease, height 0.5s ease;
         }
         .wake-button:active::after {
-            width: 100%;
+            width: 200%;
             height: 200%;
             transition: 0s;
         }
@@ -144,6 +141,7 @@
             font-size: 18px;
             color: #bbb;
             text-align: center;
+            margin-top: 0; /* уменьшенное расстояние сверху */
             margin-bottom: 10px;
         }
     </style>
@@ -151,7 +149,7 @@
 <body>
     <div class="content">
         <div class="device-list" id="deviceList"></div>
-        <button class="wake-button" id="wakeButton">Wake PC</button>
+        <button class="wake-button" id="wakeButton">Wake On LAN</button>
     </div>
     <div class="ip-address" id="ipAddress"></div>
 
@@ -220,6 +218,8 @@
         }
 
         wakeButton.addEventListener("click", async () => {
+            // Убираем фокус, чтобы кнопка не оставалась в активном состоянии
+            wakeButton.blur();
             try {
                 const response = await fetch(`${apiUrl}/wake`, {
                     method: "POST",
