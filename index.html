@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=414, height=782, initial-scale=1.0">
+    <meta name="viewport" content="width=414, initial-scale=1.0, user-scalable=yes">
     <title>Home Assistant</title>
     <style>
         body {
@@ -12,17 +12,23 @@
             color: #f0f0f0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+        }
+        .content {
+            width: 100%;
+            max-width: 360px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .device-list {
             width: 100%;
-            max-width: 360px;
             overflow-y: auto;
-            padding: 20px;
-            box-sizing: border-box;
+            margin-bottom: 20px;
         }
         .device-item {
             display: flex;
@@ -95,18 +101,27 @@
             background: transparent;
             border: 2px solid #fff;
             color: #fff;
-            padding: 10px 20px;
+            padding: 20px 40px;
+            font-size: 18px;
             border-radius: 8px;
             cursor: pointer;
-            margin: 20px 0;
+            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
-            transition: color 0.3s ease, border-color 0.3s ease;
+            transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
         .wake-button:hover {
             color: #181818;
             background: #fff;
             border-color: #fff;
+        }
+        .wake-button:active {
+            background: #fff;
+            color: #181818;
+        }
+        .wake-button:focus {
+            outline: none;
         }
         .wake-button::after {
             content: '';
@@ -121,22 +136,23 @@
             transition: width 0.5s ease, height 0.5s ease;
         }
         .wake-button:active::after {
-            width: 200%;
+            width: 100%;
             height: 200%;
             transition: 0s;
         }
         .ip-address {
-            position: absolute;
-            bottom: 20px;
             font-size: 18px;
             color: #bbb;
             text-align: center;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="device-list" id="deviceList"></div>
-    <button class="wake-button" id="wakeButton">Wake On LAN</button>
+    <div class="content">
+        <div class="device-list" id="deviceList"></div>
+        <button class="wake-button" id="wakeButton">Wake PC</button>
+    </div>
     <div class="ip-address" id="ipAddress"></div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -225,7 +241,7 @@
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
-                ipAddressDiv.textContent = `IP: ${data.ip.split('.').slice(0, 1).join('.')}.xxx.xxx.xxx`;
+                ipAddressDiv.textContent = `IP: ${data.ip.split('.')[0]}.xxx.xxx.xxx`;
             } catch (error) {
                 ipAddressDiv.textContent = `IP: Error ${error}`;
             }
