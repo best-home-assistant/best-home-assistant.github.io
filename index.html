@@ -108,23 +108,35 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
+            animation: fadeIn 0.5s forwards;
         }
         .wake-button:hover {
             background-color: rgba(255, 255, 255, 0.1);
             color: #bbb;
         }
+        .wake-button.active {
+            background-color: #bbb;
+            color: #181818;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="device-list" id="deviceList"></div>
+    <button class="wake-button" id="wakeButton" onclick="wakeOnLan()">Включить ноутбук</button>
     <div class="ip-address" id="ipAddress"></div>
-    <button class="wake-button" onclick="wakeOnLan()">Включить ноутбук</button>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         const apiUrl = "https://thankful-blindly-bear.ngrok-free.app";
         const deviceList = document.getElementById("deviceList");
         const ipAddressDiv = document.getElementById("ipAddress");
+        const wakeButton = document.getElementById("wakeButton");
         const deviceStateMap = {};
 
         async function loadDevices() {
@@ -216,6 +228,7 @@
 
                 if (response.ok) {
                     console.log("Запрос на включение ноутбука отправлен успешно.");
+                    wakeButton.classList.add("active");
                 } else {
                     console.error("Не удалось отправить запрос на включение ноутбука.");
                 }
@@ -229,6 +242,12 @@
             updateIpAddress();
             setInterval(updateIpAddress, 1000);
         };
+
+        document.addEventListener("click", (event) => {
+            if (event.target !== wakeButton) {
+                wakeButton.classList.remove("active");
+            }
+        });
     </script>
 </body>
 </html>
