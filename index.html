@@ -15,20 +15,14 @@
             align-items: center;
             min-height: 100vh;
         }
-        .content {
-            width: 100%;
-            max-width: 360px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+
+        /* Removed .content div */
+
         .device-list {
             width: 100%;
             overflow-y: auto;
             margin-bottom: 10px; /* Reduced spacing */
+            max-width: 360px; /* Limit width for larger screens */
         }
         .device-item {
             display: flex;
@@ -141,13 +135,20 @@
             text-align: center;
             margin-bottom: 10px;
         }
+
+        /* Media query for PC */
+        @media (min-width: 768px) {
+            .wake-button:hover {
+                color: #181818;
+                background: #fff;
+                border-color: #fff;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="content">
-        <div class="device-list" id="deviceList"></div>
-        <button class="wake-button" id="wakeButton">Wake PC</button>
-    </div>
+    <div class="device-list" id="deviceList"></div>
+    <button class="wake-button" id="wakeButton">Wake PC</button>
     <div class="ip-address" id="ipAddress"></div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
