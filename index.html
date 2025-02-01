@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=414, height=782, initial-scale=1.0">
-    <title>Управление VPN</title>
+    <title>Home Assistant</title>
     <style>
         body {
             margin: 0;
@@ -98,11 +98,27 @@
             color: #bbb;
             text-align: center;
         }
+        .wake-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: transparent;
+            border: 2px solid #bbb;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .wake-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #bbb;
+        }
     </style>
 </head>
 <body>
     <div class="device-list" id="deviceList"></div>
     <div class="ip-address" id="ipAddress"></div>
+    <button class="wake-button" onclick="wakeOnLan()">Включить ноутбук</button>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -184,6 +200,27 @@
                 ipAddressDiv.textContent = `IP: ${data.ip.split('.').slice(0, 1).join('.')}.xxx.xxx.xxx`;
             } catch (error) {
                 ipAddressDiv.textContent = `IP: Error ${error}`;
+            }
+        }
+
+        async function wakeOnLan() {
+            try {
+                const response = await fetch(`${apiUrl}/wake`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${window.Telegram.WebApp.initData}`,
+                        "ngrok-skip-browser-warning": "69420"
+                    }
+                });
+
+                if (response.ok) {
+                    console.log("Запрос на включение ноутбука отправлен успешно.");
+                } else {
+                    console.error("Не удалось отправить запрос на включение ноутбука.");
+                }
+            } catch (error) {
+                console.error("Ошибка при отправке запроса на включение ноутбука:", error);
             }
         }
 
