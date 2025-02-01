@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=420, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=414, initial-scale=1, user-scalable=no">
     <title>Home Assistant</title>
     <style>
         body {
@@ -14,7 +14,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 120vh;
+            height: 100vh;
             overflow: hidden;
         }
         .device-list {
@@ -139,8 +139,10 @@
 </head>
 
 <body>
-    <div class="device-list" id="deviceList"></div>
-    <button class="wake-button" id="wakeButton">Wake PC</button>
+    <div>
+        <div class="device-list" id="deviceList"></div>
+        <button class="wake-button" id="wakeButton">Wake PC</button>
+    </div>
     <div class="ip-address" id="ipAddress"></div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
