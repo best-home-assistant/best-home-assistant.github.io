@@ -136,33 +136,11 @@
             text-align: center;
         }
     </style>
-
-    <script>
-        function getUserAgentPlatform() {
-            const ua = navigator.userAgent;
-            if (/android/i.test(ua)) {
-              return "Android";
-            } else if (/iPad|iPhone|iPod/.test(ua)) {
-              return "iOS";
-            }
-            return "Other";
-        }
-    </script>
 </head>
 
 <body>
     <div class="device-list" id="deviceList"></div>
     <button class="wake-button" id="wakeButton">Wake PC</button>
-    <script>
-        window.onload = () => {
-            const platform = getUserAgentPlatform();
-            if (platform !== "Android" && platform !== "iOS") {
-                document.body.appendChild(document.createElement('br'));
-                document.body.appendChild(document.createElement('br'));
-                document.body.appendChild(document.createElement('br'));
-            }
-        };
-    </script>
     <div class="ip-address" id="ipAddress"></div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -172,6 +150,16 @@
         const ipAddressDiv = document.getElementById("ipAddress");
         const wakeButton = document.getElementById("wakeButton");
         const deviceStateMap = {};
+
+        function getUserAgentPlatform() {
+            const ua = navigator.userAgent;
+            if (/android/i.test(ua)) {
+              return "Android";
+            } else if (/iPad|iPhone|iPod/.test(ua)) {
+              return "iOS";
+            }
+            return "Other";
+        }
 
         async function loadDevices() {
             try {
@@ -263,15 +251,8 @@
             setInterval(updateIpAddress, 1000);
 
             const platform = getUserAgentPlatform();
-            const styleSheet = document.styleSheets[0];
             if (platform !== "Android" && platform !== "iOS") {
-                styleSheet.insertRule(`
-                    .wake-button:hover {
-                        color: #181818;
-                        background: #A0A0A0;
-                        border-color: #A0A0A0;
-                    }
-                `, styleSheet.cssRules.length);
+                wakeButton.style.marginBottom = "20px"; // Увеличиваем отступ для других устройств
             }
         };
     </script>
