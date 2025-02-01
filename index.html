@@ -246,6 +246,7 @@
         }
 
         window.onload = () => {
+            setViewportScale(0.8);
             loadDevices();
             updateIpAddress();
             setInterval(updateIpAddress, 1000);
