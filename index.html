@@ -135,6 +135,19 @@
             color: #bbb;
             text-align: center;
         }
+
+        /* Медиазапросы для управления отступами на разных устройствах */
+        @media (max-width: 768px) {
+            .wake-button {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .wake-button {
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -251,8 +264,15 @@
             setInterval(updateIpAddress, 1000);
 
             const platform = getUserAgentPlatform();
+            const styleSheet = document.styleSheets[0];
             if (platform !== "Android" && platform !== "iOS") {
-                wakeButton.style.marginBottom = "20px"; // Увеличиваем отступ для других устройств
+                styleSheet.insertRule(`
+                    .wake-button:hover {
+                        color: #181818;
+                        background: #A0A0A0;
+                        border-color: #A0A0A0;
+                    }
+                `, styleSheet.cssRules.length);
             }
         };
     </script>
